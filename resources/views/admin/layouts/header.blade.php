@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link href="{{ asset('admin/img/logo/logo.png') }}" rel="icon">
+  <link href="{{ asset('admin/img/logo/Group-38.png') }}" rel="icon">
   <title>HerdimartAdmin - Dashboard</title>
   @notifyCss
   <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

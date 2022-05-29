@@ -1,7 +1,7 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.admin') }}">
         <div class="sidebar-brand-icon">
-          <img src="{{ asset('admin/img/logo/logo2.png')}}">
+          <img src="{{ asset('admin/img/logo/Group-38.png')}}">
         </div>
         <div class="sidebar-brand-text mx-3">HerdimartAdmin</div>
       </a>

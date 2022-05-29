@@ -31,20 +31,17 @@ Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallb
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-Route::get('index', function () {
-    return view('admin.layouts.container');
-})->name('dashboard.admin');
-
-Route::get('/admin/test', function () {
-    return view('test');})->name('dashboard-test');
-
-
-
-
+Route::group(['prefix'=>'auth', 'middleware'=>['auth', 'isAdmin']], function () {
+    Route::get('index', function () {
+        return view('admin.dashboard');
+    })->name('dashboard.admin');
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
 
-    Route::middleware(['auth'])->group(function () {
+});
+
+
+Route::middleware(['auth'])->group(function () {
     // dashboard
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
