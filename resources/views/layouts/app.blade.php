@@ -21,6 +21,7 @@
 
     @include('components.navbar')
     {{-- @include('layouts.navigation') --}}
+    {{-- @include('components.sidebar') --}}
 
     @yield('content')
 

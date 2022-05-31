@@ -7,6 +7,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\FrontProductListController;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +23,14 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
+
+Route::get('/', [FrontProductListController::class, 'index'])->name('welcome');
+Route::get('/product/{product:slug}', [FrontProductListController::class, 'show'])->name('show-product')->missing(function (Request $request) {
+    return Redirect::route('welcome');
+});
 
 // Socialite route
 Route::get('sign-in-google', [UserController::class, 'google'])->name('user.login.google');

@@ -23,4 +23,9 @@ class Product extends Model
     public function category(){
     	return $this->hasOne(ProductCategory::class,'id','category_id');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
