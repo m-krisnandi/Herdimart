@@ -82,6 +82,7 @@ class CategoryController extends Controller
     {
         $category = ProductCategory::find($id);
         $category->name= $request->name;
+        $category->slug = Str::slug($request->name);
         $category->save();
         notify()->success('Category updated successfully!');
         return redirect()->route('category.index');

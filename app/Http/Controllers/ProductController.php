@@ -97,6 +97,7 @@ class ProductController extends Controller
             $image = $request->file('image')->store('public/product');
             \Storage::delete($filename);
         $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
         $product->image = $image;
         $product->price=$request->price;
         $product->stock=$request->stock;
@@ -104,6 +105,7 @@ class ProductController extends Controller
         $product->save();
        }else{
         $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
         $product->price=$request->price;
         $product->stock=$request->stock;
         $product->category_id = $request->category;
