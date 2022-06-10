@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontProductListController;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -50,6 +51,8 @@ Route::group(['prefix'=>'auth', 'middleware'=>['auth', 'isAdmin']], function () 
 });
 
 
+
+
 Route::middleware(['auth'])->group(function () {
     // dashboard
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -59,14 +62,22 @@ Route::middleware(['auth'])->group(function () {
     //     })->name('dashboard');
 
     // user dashboard
-    // Route::prefix('user/dashboard')->namespace('User')->name('user.')->group(function(){
-    //    Route::get('/', [UserDashboard::class, 'index'])->name('dashboard');
-    // });
+    Route::prefix('user/dashboard')->namespace('User')->name('user.')->group(function(){
+       Route::get('/', [UserDashboard::class, 'index'])->name('dashboard');
+    });
 
     // admin dashboard
     Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->group(function(){
         Route::get('/', [AdminDashboard::class, 'index'])->name('dashboard');
      });
+
+    Route::get('/addtocart/{product:slug}', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart-show');
+    Route::post('/cart/{product:slug}', [CartController::class, 'updateCart'])->name('cart-update');
+    Route::post('/cart/{product:slug}/delete', [CartController::class, 'removeCart'])->name('cart-remove');
+    Route::get('/booking/{amount}', [CartController::class, 'booking'])->name('booking');
+    Route::post('/charge', [CartController::class, 'charge'])->name('cart-charge');
+    Route::get('/orders', [CartController::class, 'order'])->name('order');
 
 });
 

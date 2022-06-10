@@ -15,7 +15,7 @@ class HomeController extends Controller
                 break;
 
             default:
-                return redirect(route('dashboard'));
+                return redirect(route('user.dashboard'));
                 break;
         }
     }
