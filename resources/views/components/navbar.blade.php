@@ -21,10 +21,18 @@
                     <a class="nav-link" href="#">Business</a>
                 </li> --}}
             </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+                <a href="{{route('cart-show')}}" class="nav-link">
+                    <span class="fa fa-shopping-cart">
+                        ({{session()->has('cart')?session()->get('cart')->totalQty:'0'}})
+                    </span>
+                </a>
+            </ul>
             @auth
             <div class="d-flex user-logged nav-item dropdown no arrow">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    Halo, {{ Auth::user()->name }}
+                    {{-- Halo, {{ Auth::user()->name }} --}}
                     @if (Auth::user()->avatar)
                         <img src="{{ Auth::user()->avatar }}" class="user-photo rounded-circle" alt="">
                     @else
@@ -32,7 +40,7 @@
                     @endif
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left:auto">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">My Dashboard</a>
+                            <a href="{{ route('order') }}" class="dropdown-item">My Dashboard</a>
                         </li>
                         <li>
                             <a href="#" class="dropdown-item"

@@ -29,7 +29,7 @@
                     <small class="text-muted">Rp. {{ $product->price }}</small>
                   <div class="btn-group">
                     <a href="product/{{ $product->slug }}"><button type="button" class="btn btn-sm btn-outline-success">View</button></a>
-                    <button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button>
+                    <a href="{{ route('add-to-cart', [$product->slug]) }}"><button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button></a>
                   </div>
                 </div>
               </div>
@@ -52,5 +52,4 @@
       <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.2/getting-started/introduction/">getting started guide</a>.</p>
     </div>
   </footer>
-
 @endsection
