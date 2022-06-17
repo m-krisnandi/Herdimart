@@ -47,6 +47,6 @@ class User extends Authenticatable
 
     public function bookings()
     {
-        return $this->hasMany('App\Models\Booking');
+        return $this->hasMany(Booking::class);
     }
 }

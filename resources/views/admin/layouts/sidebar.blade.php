@@ -46,6 +46,34 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap3"
+          aria-expanded="true" aria-controls="collapseBootstrap3">
+          <i class="far fa-fw fa-window-maximize"></i>
+          <span>Users</span>
+        </a>
+        <div id="collapseBootstrap3" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Users</h6>
+            <a class="collapse-item" href="{{ route('user.index') }}">View All User</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap4"
+          aria-expanded="true" aria-controls="collapseBootstrap4">
+          <i class="far fa-fw fa-window-maximize"></i>
+          <span>Booking</span>
+        </a>
+        <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Booking</h6>
+            <a class="collapse-item" href="{{ route('user.orders') }}">View All Booking</a>
+          </div>
+        </div>
+      </li>
+
+      {{-- <li class="nav-item">
         <a class="nav-link" href="forms.html">
           <i class="fab fa-fw fa-wpforms"></i>
           <span>Forms</span>
@@ -96,7 +124,7 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span>
         </a>
-      </li>
+       </li> --}}
       <hr class="sidebar-divider">
       <div class="version" id="version-ruangadmin"></div>
     </ul>

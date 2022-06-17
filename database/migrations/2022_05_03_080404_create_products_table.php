@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug', 100);
             $table->string('image')->nullable();
             $table->integer('price')->unsigned();
-            $table->integer('stock')->unsigned();
+            // $table->integer('stock')->unsigned();
             $table->integer('category_id');
             $table->timestamps();
             $table->softDeletes();

@@ -11,6 +11,11 @@ use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
+    public function index() {
+        $users = User::where('is_admin', '!=', 1)->get();
+
+        return view('admin.user.index', compact('users'));
+    }
     public function login() {
         return view('auth.user.login');
     }

@@ -52,19 +52,20 @@ Total Price: Rp. {{$cart->totalPrice}}
  			<div class="card-header">Checkout</div>
  			<div class="card-body">
 
- 	     <form action="{{ route('cart-charge') }}" method="post" id="payment-form">@csrf
+ 	     <form action="{{ route('cart-charge', [$cart['_token']]) }}" method="post" id="payment-form">@csrf
                       <div class="form-group">
                         <label>Name</label>
                         <input type="text" name="name" id="name" class="form-control" required="" value="{{auth()->user()->name}}" readonly="">
                       </div>
 
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label>No Telp</label>
                         <input type="text" name="telp" id="telp" class="form-control" required="">
-                      </div>
+                      </div> --}}
 
                       <div class="">
-              <input type="hidden" name="amount" value="{{$amount}}">
+              {{-- <input type="hidden" name="amount" value="{{$amount}}"> --}}
+              <input type="hidden" name="id" value="{{$cart['id']}}">
               <div class="mt-5">
                 <button type="submit" class="w-100 btn btn-primary">Booking Now</button>
               </div>
@@ -81,7 +82,7 @@ window.onload=function(){
 
 // Handle real-time validation errors from the card Element.
 card.addEventListener('change', function(event) {
-  var displayError = document.getElementById('card-errors');
+  let displayError = document.getElementById('card-errors');
   if (event.error) {
     displayError.textContent = event.error.message;
   } else {
@@ -90,13 +91,13 @@ card.addEventListener('change', function(event) {
 });
 
 // Handle form submission.
-var form = document.getElementById('payment-form');
+let form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
-  var options={
+  let options={
     name:document.getElementById('name').value,
-    address_line1:document.getElementById('telp').value
+    // telp:document.getElementById('telp').value
   }
 });
 }

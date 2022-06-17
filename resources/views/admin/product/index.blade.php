@@ -21,7 +21,7 @@
                         <th>Image</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Stock</th>
+                        {{-- <th>Stock</th> --}}
                         <th>Category</th>
                         <th>Action</th>
                         <th></th>
@@ -38,7 +38,7 @@
                         </td>
                         <td>{{$product->name}}</td>
                         <td>Rp.{{$product->price}}</td>
-                        <td>{{$product->stock}}</td>
+                        {{-- <td>{{$product->stock}}</td> --}}
                         <td>{{$product->category->name}}</td>
                         <td>
                           <a href="{{route('product.edit',[$product->id])}}">

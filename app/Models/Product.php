@@ -16,7 +16,7 @@ class Product extends Model
         'slug',
         'image',
         'price',
-        'stock',
+        // 'stock',
         'category_id',
     ];
 
