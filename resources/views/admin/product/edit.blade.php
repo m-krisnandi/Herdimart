@@ -170,7 +170,7 @@
 
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="">Stock</label>
                         <input type="text" name="stock" class="form-control @error('stock') is-invalid @enderror " id="" aria-describedby="" value="{{$product->stock}}"
                           >
@@ -180,9 +180,9 @@
                                       </span>
                         @enderror
 
-                      </div>
+                      </div> --}}
 
-                      
+
                     <div class="form-group">
                       <label for="">Choose Category</label>
                         <select name="category" class="form-control @error('category') is-invalid @enderror"  required="">

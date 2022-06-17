@@ -41,7 +41,7 @@ class ProductController extends Controller
             'name'=>'required',
             'image'=>'required|mimes:jpeg,png',
             'price'=>'required|numeric',
-            'stock'=>'required|numeric',
+            // 'stock'=>'required|numeric',
             'category'=>'required'
          ]);
            $image = $request->file('image')->store('public/product');
@@ -52,7 +52,7 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'image'=>$image,
             'price'=>$request->price,
-            'stock'=>$request->stock,
+            // 'stock'=>$request->stock,
             'category_id'=>$request->category,
          ]);
          notify()->success('Product created successfully!');
@@ -100,7 +100,7 @@ class ProductController extends Controller
         $product->slug = Str::slug($request->name);
         $product->image = $image;
         $product->price=$request->price;
-        $product->stock=$request->stock;
+        // $product->stock=$request->stock;
         $product->category_id = $request->category;
         $product->save();
        }else{

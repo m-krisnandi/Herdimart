@@ -23,25 +23,44 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
-                <a href="{{route('cart-show')}}" class="nav-link">
-                    <span class="fa fa-shopping-cart">
+                <form action="">
+                    <input class="txt-search" type="text" name="search" placeholder="Cari barang">
+                    <button class="btn-search" type="submit"><img class="button-search" src="{{ asset('images/Search-button.png') }}"></button>
+                    {{-- <a href="#search" class="btn-search">
+
+                    </a> --}}
+                </form>
+
+                {{-- <a href=""><img src="{{ asset('images/Troli.svg') }}" alt=""></a> --}}
+                <a href="" class="nav-link">
+                    {{-- <img src="{{ asset('images/Troli.png') }}" alt=""> --}}
+                    {{-- <span class="fa fa-shopping-cart">
                         ({{session()->has('cart')?session()->get('cart')->totalQty:'0'}})
-                    </span>
+                    </span> --}}
                 </a>
             </ul>
+
             @auth
             <div class="d-flex user-logged nav-item dropdown no arrow">
                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     {{-- Halo, {{ Auth::user()->name }} --}}
                     @if (Auth::user()->avatar)
-                        <img src="{{ Auth::user()->avatar }}" class="user-photo rounded-circle" alt="">
+                        <img src="{{ Auth::user()->avatar }}" style="height: 50px" class="user-photo rounded" alt="">
                     @else
-                        <img src="https://ui-avatars.com/api/?name=admin" class="user-photo rounded-circle" alt="">
+                        <img src="https://ui-avatars.com/api/?name=admin" class="user-photo rounded" alt="">
                     @endif
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left:auto">
-                        <li>
-                            <a href="{{ route('order') }}" class="dropdown-item">My Dashboard</a>
-                        </li>
+                        @if(Auth::user()->is_admin)
+                            <li>
+                                <a href="{{ route('dashboard.admin') }}" class="dropdown-item">My Dashboard</a>
+                            </li>
+                        @else
+
+                            {{-- <li>
+                                <a href="{{ route('order' ) }}" class="dropdown-item">My Dashboard</a>
+                            </li> --}}
+
+                        @endif
                         <li>
                             <a href="#" class="dropdown-item"
                             onclick="event.preventDefault();
@@ -54,15 +73,48 @@
                     </ul>
                 </a>
             </div>
+                <a href="{{route('cart-show')}}" class="nav-link">
+                    <img src="{{ asset('images/Troli.png') }}" alt="">
+                    {{-- <span class="fa fa-shopping-cart">
+                        ({{session()->has('cart')?session()->get('cart')->totalQty:'0'}})
+                    </span> --}}
+                </a>
+
+            <a href="{{ route('order' ) }}" class="nav-link">
+                <img src="{{ asset('images/Pesanan.png') }}" alt="">
+            </a>
                 @else
-                <div class="d-flex">
+                {{-- <div class="d-flex">
                     <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
                         Sign In
                     </a>
                     <a href="{{ route('login') }}" class="btn btn-master btn-primary">
                         Sign Up
                     </a>
+                </div> --}}
+
+                <div class="d-flex user-logged nav-item dropdown no arrow">
+                    <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{-- Halo, {{ Auth::user()->name }} --}}
+                            <img src="{{ asset('images/Profile.png') }}" alt="">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left:auto">
+                                <li>
+                                    <a href="{{ route('login') }}" class="dropdown-item">Sign In</a>
+                                </li>
+                            </li>
+                        </ul>
+                    </a>
                 </div>
+                    <a href="{{route('cart-show')}}" class="nav-link">
+                        <img src="{{ asset('images/Troli.png') }}" alt="">
+                        {{-- <span class="fa fa-shopping-cart">
+                            ({{session()->has('cart')?session()->get('cart')->totalQty:'0'}})
+                        </span> --}}
+                    </a>
+
+                <a href="{{ route('order' ) }}" class="nav-link">
+                    <img src="{{ asset('images/Pesanan.png') }}" alt="">
+                </a>
             @endauth
 
         </div>

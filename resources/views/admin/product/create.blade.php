@@ -61,7 +61,7 @@
 
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                     <label for="">Stock</label>
                     <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror " id="" aria-describedby=""
                       >
@@ -71,7 +71,7 @@
                                   </span>
                     @enderror
 
-                  </div>
+                  </div> --}}
                 <div class="form-group">
                       <label for="">Choose Category</label>
                         <select name="category"  class="form-control @error('category') is-invalid @enderror" >

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BookingEvent;
+use App\Jobs\DeleteBooking;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class CartController extends Controller
 {
@@ -60,6 +67,15 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    // public function booking($amount){
+    //     if(session()->has('cart')){
+    //         $cart = new Cart(session()->get('cart'));
+    //     }else{
+    //         $cart = null;
+    //     }
+    //     return view('checkout',compact('amount','cart'));
+    // }
+
     public function booking($amount){
         if(session()->has('cart')){
             $cart = new Cart(session()->get('cart'));
@@ -69,19 +85,54 @@ class CartController extends Controller
         return view('checkout',compact('amount','cart'));
     }
 
-    public function charge(Request $request){
+    public function charge(Booking $booking, Request $request){
 
-        if(session()->has('cart')){
-            $cart = new Cart(session()->get('cart'));
-        }else{
-            $cart = null;
-        }
+        // return $request->all();
+        // if(session()->has('cart')){
+        //     $cart = new Cart(session()->get('cart'));
+        // }else{
+        //     $cart = null;
+        // }
 
-            auth()->user()->bookings->create([
+        // $checkout = auth()->user()->bookings()->create([
 
-                'cart'=>serialize(session()->get('cart')),
-                'is_paid'=>false,
-            ]);
+        //         'cart'=>serialize(session()->get('cart'))
+        //     ]);
+        // $checkout = ($request->session())->get('cart');
+        // $checkout = unserialize($checkout);
+        // dd($checkout);
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $data['cart'] = serialize(session()->get('cart'));
+        $data['is_paid'] = 0;
+        Booking::create($data);
+        // $checkout = Booking::create($data);
+        // dd($checkout);
+        // $checkout = Booking::create([
+        //     'user_id' => Auth::id(),
+        //     'cart' => serialize(session()->get('cart')),
+        //     'amount' => $amount,
+        //     'is_paid' => 0,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // dd($checkout);
+        // dd($data['_token']);
+
+        // // update user data
+        // $user = Auth::user();
+        // $user->name = $data['name'];
+
+        // $user->save();
+
+        // auth()->user()->bookings()->create([
+
+        //     'cart'=>serialize(session()->get('cart'))
+        // ]);
+
+        // create Booking
+        // Booking::create($data);
+
 
 
             session()->forget('cart');
@@ -96,10 +147,67 @@ class CartController extends Controller
         $carts =$bookings->transform(function($cart,$key){
             return unserialize($cart->cart);
         });
-        dd($carts);
-        // return view('booking',compact('carts'));
+        // dd($carts);
+        $cekStatus = Booking::where('user_id', auth()->user()->id)->first();
+        // dd($cekStatus->is_paid);
+        // dd($cekStatus);
+        // dd($cekStatus->id);
 
+        // if ($cekStatus->is_paid == false) {
+        //     // event(new BookingEvent($cekStatus));
+        // }
+
+        // dispatch(new DeleteBooking($cekStatus));
+
+        if ($cekStatus != null) {
+            DeleteBooking::dispatch($cekStatus)->delay(now()->addMinutes(1));
+
+            $now = Carbon::now();
+            $twoDayFromNow = Carbon::now()->addDays(2);
+            $modified = $twoDayFromNow;
+            // dd($modified);
+            return view('booking',compact('carts', 'cekStatus', 'modified'));
+            // return view('booking',compact('carts', 'modified'));
+        }
+
+        return view('booking',compact('carts', 'cekStatus'));
+        // return view('booking',compact('carts'));
     }
+
+    public function destroy(Booking $booking){
+        $booking = Booking::where('user_id', auth()->user()->id)->first();
+        $booking->delete();
+        return redirect()->back();
+    }
+
+    public function userOrders() {
+        $bookings = Booking::latest()->get();
+        $cekStatus = Booking::where('user_id', auth()->user()->id)->first();
+
+        return view('admin.order.index',compact('bookings', 'cekStatus'));
+    }
+
+    public function viewUserOrders($userid, $bookingid) {
+        $user = User::find($userid);
+        $bookings = $user->bookings->where('id', $bookingid);
+        // dd($bookings);
+        $carts =$bookings->transform(function($cart,$key){
+            return unserialize($cart->cart);
+        });
+        // $cekStatus = Booking::where('user_id', $user->id)->first();
+        $cekStatus = Booking::where('user_id', $user->id)->first();
+
+
+        return view('admin.order.show',compact('carts', 'cekStatus'));
+    }
+
+    public function checkoutUpdate(Request $request, $id) {
+        $booking = Booking::find($id);
+        $booking->is_paid = true;
+        $booking->save();
+        return redirect()->back();
+    }
+
 
 
 }

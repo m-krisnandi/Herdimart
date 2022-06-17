@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\CartController;
@@ -47,10 +48,14 @@ Route::group(['prefix'=>'auth', 'middleware'=>['auth', 'isAdmin']], function () 
     })->name('dashboard.admin');
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
+    Route::get('users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/booking', [CartController::class, 'userOrders'])->name('user.orders');
+    Route::get('/booking/{userid}/{bookingid}', [CartController::class, 'viewUserOrders'])->name('view.user.orders');
+    Route::post('/booking/{id}', [CartController::class, 'checkoutUpdate'])->name('checkout.update');
 
 });
 
-
+Route::get('/category/{category:slug}', [FrontProductListController::class, 'category'])->name('category');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -77,7 +82,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/{product:slug}/delete', [CartController::class, 'removeCart'])->name('cart-remove');
     Route::get('/booking/{amount}', [CartController::class, 'booking'])->name('booking');
     Route::post('/charge', [CartController::class, 'charge'])->name('cart-charge');
-    Route::get('/orders', [CartController::class, 'order'])->name('order');
+    // Route::get('/booking', [CartController::class, 'order'])->name('order');
+    Route::get('/booking', [BookingController::class, 'index'])->name('order');
+    Route::delete('/booking/{id}', [CartController::class, 'destroy'])->name('order-destroy');
+
 
 });
 
