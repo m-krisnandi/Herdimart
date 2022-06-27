@@ -60,6 +60,7 @@ class BookingController extends Controller
 
             $now = Carbon::now();
             $twoDayFromNow = Carbon::now()->addDays(2);
+            // $twoDayFromNow = Carbon::now()->addMinutes(1);
             $modified = $twoDayFromNow;
             // dd($modified);
             return view('booking',compact('carts', 'cekStatus', 'modified'));

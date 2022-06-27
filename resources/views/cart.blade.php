@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="py-5 container">
-    @if (session()->has('success'))
+@if (session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
     </div>
@@ -15,60 +14,54 @@
         </ul>
     </div>
 @endif
-    <section class="text-center container">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Remove</th>
-              </tr>
-            </thead>
-            <tbody class="align-middle">
-                @if ($cart)
+
+<div class="wrapper-cart">
+    <div class="card-container-cart">
+        <h2>Keranjang</h2>
+        <div class="divider"></div>
+        @if ($cart)
                 @php $i = 1 @endphp
                 @foreach ($cart->items as $product)
-              <tr>
-                <th scope="row">{{ $i++ }}</th>
-                <td><img src="{{ Storage::url($product['image']) }}" width="100"></td>
-                <td>{{ $product['name'] }}</td>
-                <td>Rp. {{ $product['price'] }}</td>
-                <td>
-                    <form action="{{ route('cart-update', $product ['slug']) }}" method="POST"> @csrf
-                        <input type="text" name="qty" value="{{ $product['qty'] }}">
-                        <button class="btn btn-secondary btn-sm ">
-                            <i class="fas fa-sync"> Update</i>
-                        </button>
-                        {{-- <a class="btn btn-increase" href="#" wire:click.prevent="increaseQuantity('{{ $product['id'] }}')">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                        <a class="btn btn-reduce" href="#" wire:click.prevent="increaseQuantity('{{ $product['id'] }}')" >
-                            <i class="fas fa-minus"></i>
-                        </a> --}}
+        <div class="card-cart">
+            <img class="item-pict" src="{{ Storage::url($product['image']) }}" alt="Avatar">
+            <div class="card-desc-cart">
+                <article class="item-detail">
+                    <h4>{{ $product['name'] }}</h4>
+                    <p><b>Rp {{ $product['price'] }}</b></p>
+                </article>
+                <article class="item-amount">
+                    <form class="form-group" action="{{ route('cart-update', $product ['slug']) }}" method="POST"> @csrf
+                        <div class="form-group-half">
+                            <input class="item-total" type="text" name="qty" value="{{ $product['qty'] }}">
+                        </div>
+                        <div class="form-group-half">
+                            <button class="btn btn-primary" type="submit">Update</button>
+                        </div>
                     </form>
-                </td>
-                <td>
-                    <form action="{{ route('cart-remove', $product ['slug']) }}" method="POST"> @csrf
-                        <button class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
-              </tr>
-                @endforeach
-            </tbody>
-          </table>
-            <div class="card-footer">
-                <button class="btn btn-primary">Continue shopping</button>
-                <span style="margin-left:270px; margin-right:270px;">Total Price: Rp. {{ $cart->totalPrice }}</span>
-                <a href="{{ route('booking', $cart->totalPrice) }}"><button class="btn btn-success">Booking</button></a>
+                </article>
             </div>
-            @else
-            <h3>Cart is empty</h3>
-            @endif
-      </section>
+            <form action="{{ route('cart-remove', $product ['slug']) }}" method="POST"> @csrf
+                <button style="border:none !important; background-color:#e2e2e2 !important" class="item-del"><img src="{{ asset('images/trash.svg') }}"></button>
+            </form>
+        </div>
+        @endforeach
+    </div>
+    <aside class="sidebar-cart">
+        <article class="bill-detail">
+            <h2 style="font-size: 1.8rem;">Tagihan</h2><br>
+            <h3 style="font-size: 1.2rem;">Total Pesanan (<span class="bill-item">{{ $cart->totalQty }}</span>)</h3>
+            <div class="divider2"></div>
+            <article class="bill-container">
+                <h3><span style="font-size: 1.2rem;">Harga</span></h3>
+                <h3><span class="bill-price">Rp {{ $cart->totalPrice }}</h3>
+            </article>
+            <a href="{{ route('booking', $cart->totalPrice) }}"><button class="bill-button">Booking (<span class="bill-item">{{ $cart->totalQty }}</span>)</button></a>
+        </article>
+    </aside>
+    @else
+        <h3>Cart is empty</h3>
+    @endif
 </div>
+
+
 @endsection

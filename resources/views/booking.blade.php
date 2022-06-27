@@ -103,14 +103,25 @@
                             @else
                             <p class="mb-5 "><strong>Bayar Sebelum: {{ $modified }}</strong></p>
                             <p>
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" method="POST" action="{{route('order-destroy',$cekStatus->id)}}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger btn-sm ">Batalkan Pesanan</button>
-                                </form>
-                                <a href="https://wa.me/+6281312406801?text=Hi, saya ingin bertanya tentang Product yang saya Booking" class="btn-sm btn btn-info text-white">
-                                    Hubungi Penjual
-                                </a>
+                                <div class="form-group">
+                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" method="POST" action="{{route('order-destroy',$cekStatus->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <div class="form-group-half">
+                                            <button class="btn btn-danger btn-sm ">Batalkan Pesanan</button>
+                                        </div>
+
+                                    </form>
+                                    <div class="form-group-half">
+                                        <a href="https://wa.me/+6281312406801?text=Hi, saya ingin bertanya tentang Product yang saya Booking" class="btn-sm btn btn-info text-white">
+                                            Hubungi Penjual
+                                        </a>
+                                    </div>
+
+                                </div>
+
+
+
                             </p>
                             @endif
 
@@ -125,35 +136,17 @@
                                     @else
                                         <strong class="text-red">Belum Bayar</strong>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{-- <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         Bayar
                                         </button>
                                         <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reg-modal2" href="">Transfer</a>
-                                        <!-- modal itself -->
-                                <div class="modal fade" id="reg-modal2" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="modal-title2">Pastikan file adalah gambar</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="#" method="POST" enctype="multipart/form-data">@csrf
-                                                <input type="file" class="custom-file-input @error('image') is-invalid @enderror  " id="customFile" name="image">
-                                                <label class="custom-file-label  " for="customFile">Choose file</label>
-                                            </form>
-                                        </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                      </div>
-                                    </div>
-                                    </div>
-                                </div>
+                                        <li><a class="dropdown-item" href="">Transfer</a>
                                         </li>
                                         <li><a class="dropdown-item" href="">Bayar ke Tempat</a></li>
-                                        </ul>
+                                        </ul> --}}
+
+                                        <a style="text-decoration: none; color:white;"  href="{{ route('payment') }}"><button type="button" class="btn btn-primary btn-sm">
+                                            Bayar ke Tempat </a>
                                     </div>
                                     @endif
                             </p>
