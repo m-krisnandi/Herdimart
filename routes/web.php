@@ -9,7 +9,9 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontProductListController;
+use App\Http\Controllers\RequestController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -85,6 +87,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/booking', [CartController::class, 'order'])->name('order');
     Route::get('/booking', [BookingController::class, 'index'])->name('order');
     Route::delete('/booking/{id}', [CartController::class, 'destroy'])->name('order-destroy');
+
+    Route::get('/payment', [CheckoutController::class, 'index'])->name('payment');
+
+    Route::get('/request', [RequestController::class, 'index'])->name('request');
 
 
 });

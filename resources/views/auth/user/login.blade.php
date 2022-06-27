@@ -13,32 +13,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/indexM.css') }}">
 
-    <title>Laracamp</title>
+    <title>Herdimart</title>
 </head>
 
 <body>
 
-    <section class="login-user">
-        <div class="left">
-            <img src="{{ asset('images/ill_login_new.png') }}" alt="">
-        </div>
-        <div class="right">
-            <img src="{{ asset('images/logo.png') }}" class="logo" alt="">
-            <h1 class="header-third">
-                Start Today
-            </h1>
-            <p class="subheader">
-                Because tomorrow become never
-            </p>
-            <p>
-                <a class="btn btn-border btn-google-login" href="{{ route('user.login.google') }}">
-                    <img src="{{ asset('images/ic_google.svg') }}" class="icon" alt=""> Sign In with Google
-                </a>
-            </p>
-            <img src="{{ asset('images/people.png') }}" class="people" alt="">
-        </div>
-    </section>
+    <div class="wrapper-login">
+        <img src="{{ asset('images/HerdimartLogo.png') }}" alt="Logo Herdimart" class="login-logo">
+        <a style="text-decoration: none; color:black;" href="{{ route('user.login.google') }}"><div class="login-button">
+            <img class="login-google" src="{{ asset('images/Google.svg') }}">
+            <h3 >Masuk dengan akun Google</h3>
+        </div></a>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

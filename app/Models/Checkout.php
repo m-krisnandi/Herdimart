@@ -10,5 +10,15 @@ class Checkout extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'product_id', 'cart_id', 'quantity', 'phone', 'is_paid'];
+    protected $fillable = ['user_id', 'booking_id', 'cart', 'is_paid'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
 }

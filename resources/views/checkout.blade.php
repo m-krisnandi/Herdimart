@@ -65,7 +65,8 @@ Total Price: Rp. {{$cart->totalPrice}}
 
                       <div class="">
               {{-- <input type="hidden" name="amount" value="{{$amount}}"> --}}
-              <input type="hidden" name="id" value="{{$cart['id']}}">
+              {{-- <input type="hidden" name="id" value="{{$cart['id']}}"> --}}
+              <input type="hidden" name="id" value="{{ $cart->id }}">
               <div class="mt-5">
                 <button type="submit" class="w-100 btn btn-primary">Booking Now</button>
               </div>
@@ -97,6 +98,7 @@ form.addEventListener('submit', function(event) {
 
   let options={
     name:document.getElementById('name').value,
+    id:document.getElementById('id').value,
     // telp:document.getElementById('telp').value
   }
 });

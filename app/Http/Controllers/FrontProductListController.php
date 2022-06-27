@@ -10,18 +10,27 @@ class FrontProductListController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->search) {
-            $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(10);
-            return view('product', compact('products'));
-        }
-        $products = Product::latest()->limit(5)->get();
+        // if($request->search) {
+            // $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(10);
+            $products = Product::when($request->search, function ($query, $search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->where('name', 'like', $search = "%{$search}%");
+                    });
+            })->when($request->category && $request->category != 'all', function ($query) use ($request) {
+                return $query->whereHas('category', function ($query) use ($request) {
+                    $query->where('slug', $request->category);
+                });
+            })->orderBy('created_at')->paginate(5);
+            // return view('product', compact('products'));
+        // }
+        $productst = Product::latest()->limit(4)->get();
         $productCategories = ProductCategory::all();
         if($request->category) {
             $products = Product::where('category_id', $request->category)->paginate(10);
             return view('product', compact('products', 'productCategories'));
         }
 
-        return view('product', compact('products', 'productCategories'));
+        return view('product', compact('products', 'productst', 'productCategories'));
     }
 
     public function show($slug)

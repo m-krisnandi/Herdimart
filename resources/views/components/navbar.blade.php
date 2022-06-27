@@ -25,7 +25,7 @@
                 <!-- Authentication Links -->
                 <form action="">
                     <input class="txt-search" type="text" name="search" placeholder="Cari barang">
-                    <button class="btn-search" type="submit"><img class="button-search" src="{{ asset('images/Search-button.png') }}"></button>
+                    <button class="btn-search" style="border: none !important;" type="submit"><img class="button-search" src="{{ asset('images/Search-button.png') }}"></button>
                     {{-- <a href="#search" class="btn-search">
 
                     </a> --}}

@@ -7,6 +7,7 @@ use App\Jobs\DeleteBooking;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Booking;
+use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -85,7 +86,12 @@ class CartController extends Controller
         return view('checkout',compact('amount','cart'));
     }
 
-    public function charge(Booking $booking, Request $request){
+    public function charge(Booking $booking, Request $request, Checkout $checkout){
+
+        if($booking->isRegistered) {
+            $request->session()->flash('error', "You already registered.");
+            return redirect(route('order'));
+        }
 
         // return $request->all();
         // if(session()->has('cart')){
@@ -103,9 +109,11 @@ class CartController extends Controller
         // dd($checkout);
         $data = $request->all();
         $data['user_id'] = Auth::id();
+        $data['booking_id'] = $request->id;
         $data['cart'] = serialize(session()->get('cart'));
         $data['is_paid'] = 0;
         Booking::create($data);
+        // Checkout::create($data);
         // $checkout = Booking::create($data);
         // dd($checkout);
         // $checkout = Booking::create([

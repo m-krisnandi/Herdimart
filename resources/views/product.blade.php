@@ -66,9 +66,9 @@
       </div>
 
       <div class="container pt-5">
-        <h5>Paling Dicari</h5><hr>
+        <h5>Paling Terbaru</h5><hr>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-2">
-        @foreach ($products->take(4) as $product)
+        @foreach ($productst as $product)
 
         <div class="col">
           <div class="card-sm shadow-sm h-100 border-radius">
